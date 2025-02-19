@@ -1,5 +1,9 @@
 node {
     docker.image('node:16-buster-slim').inside('-p 3000:3000') {
+        stage('Checkout') {
+            checkout scm
+            sh 'ls -la'
+        }
         stage('Build') {
             sh 'npm install'
         }
