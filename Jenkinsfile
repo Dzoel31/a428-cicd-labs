@@ -10,9 +10,14 @@ node {
         stage('Test') {
             sh './jenkins/scripts/test.sh'
         }
+        stage('Manual Approval') {
+            input message: 'Lanjutkan ke tahap Deploy?', 
+                  ok: 'Proceed'
+        }
         stage('Deploy') {
             sh './jenkins/scripts/deliver.sh'
-            input message: 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)' 
+            echo "Aplikasi berjalan, menunggu 1 menit..."
+            sleep(time: 1, unit: 'MINUTES') 
             sh './jenkins/scripts/kill.sh'
         }
     }
